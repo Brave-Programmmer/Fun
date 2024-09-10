@@ -51,7 +51,7 @@
                     'eng',
                     { logger: (m) => console.log(m) }
                 ).then(({ data: { text } }) => {
-                    const extractedText = text.match(/\d+/);
+                    const extractedText = text.match(/\d+/.);
                     if (extractedText) {
                         const extractedNumber = parseInt(extractedText[0]);
                         const percentage = extractedNumber * 0.16;
