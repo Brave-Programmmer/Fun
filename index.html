@@ -3,18 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jump Scare</title>
-    <link rel="stylesheet" href="style.css">
+    <title>16% Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        #result {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Calm Page</h1>
-        <button id="scareButton" class="btn">Click Me</button>
-        <div id="jumpscare" class="jumpscare hidden">
-            <img src="jumpscare.jpeg" alt="Jump Scare">
-            <audio id="scream" src="scream.mp3"></audio>
-        </div>
-    </div>
-    <script src="script.js"></script>
+    <h2>Calculate 16% of an Integer</h2>
+    
+    <label for="number">Enter an integer:</label>
+    <input type="number" id="number" placeholder="Enter a number">
+    
+    <button onclick="calculatePercentage()">Calculate 16%</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculatePercentage() {
+            const number = document.getElementById('number').value;
+            if (number) {
+                const result = number * 0.16;
+                document.getElementById('result').innerHTML = "16% of " + number + " is: " + result;
+            } else {
+                document.getElementById('result').innerHTML = "Please enter a valid number.";
+            }
+        }
+    </script>
 </body>
 </html>
