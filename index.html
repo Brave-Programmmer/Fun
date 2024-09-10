@@ -3,72 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>16% Addition Calculator</title>
+    <title>Realistic Calculator: 16% Addition</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
-            padding: 20px;
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-direction: column;
-        }
-        h2 {
-            color: #333;
+            margin: 0;
         }
         .calculator {
-            background-color: #fff;
-            padding: 20px;
+            width: 300px;
+            background-color: #333;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .calculator-display {
+            background-color: #222;
+            border-radius: 5px;
+            color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+            text-align: right;
         }
         input {
-            padding: 10px;
-            margin: 5px 0;
             width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            text-align: right;
+            border: none;
             border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-            font-size: 16px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         button {
-            padding: 10px 15px;
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
             background-color: #28a745;
             color: #fff;
             border: none;
             border-radius: 5px;
+            font-size: 18px;
             cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         button:hover {
             background-color: #218838;
         }
         #result {
-            margin-top: 20px;
+            background-color: #222;
+            color: #fff;
             padding: 15px;
-            background-color: #e9f7ef;
-            border: 1px solid #d4edda;
-            color: #155724;
             border-radius: 5px;
             font-size: 18px;
-            text-align: center;
+            margin-top: 20px;
+            text-align: right;
         }
     </style>
 </head>
 <body>
-    <h2>16% Addition Calculator</h2>
-    
     <div class="calculator">
-        <label for="number">Enter an integer:</label>
+        <div class="calculator-display">
+            16% Addition Calculator
+        </div>
         <input type="number" id="number" placeholder="Enter a number">
-        
         <button onclick="calculateAndAdd()">Calculate and Add 16%</button>
-        
         <div id="result"></div>
     </div>
 
@@ -81,7 +86,7 @@
                 document.getElementById('result').innerHTML = 
                     "<strong>Original number:</strong> " + number + "<br>" +
                     "<strong>16% of the number:</strong> " + percentage.toFixed(2) + "<br>" +
-                    "<strong>Result after adding 16%:</strong> " + result.toFixed(2);
+                    "<strong>Total:</strong> " + result.toFixed(2);
             } else {
                 document.getElementById('result').innerHTML = "Please enter a valid number.";
             }
