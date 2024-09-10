@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>16% Calculator</title>
+    <title>16% Addition Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,21 +20,24 @@
     </style>
 </head>
 <body>
-    <h2>Calculate 16% of an Integer</h2>
+    <h2>Calculate 16% of an Integer and Add it</h2>
     
     <label for="number">Enter an integer:</label>
     <input type="number" id="number" placeholder="Enter a number">
     
-    <button onclick="calculatePercentage()">Calculate 16%</button>
+    <button onclick="calculateAndAdd()">Calculate and Add 16%</button>
     
     <div id="result"></div>
 
     <script>
-        function calculatePercentage() {
-            const number = document.getElementById('number').value;
-            if (number) {
-                const result = number * 0.16;
-                document.getElementById('result').innerHTML = "16% of " + number + " is: " + result;
+        function calculateAndAdd() {
+            const number = parseFloat(document.getElementById('number').value);
+            if (!isNaN(number)) {
+                const percentage = number * 0.16;
+                const result = number + percentage;
+                document.getElementById('result').innerHTML = "Original number: " + number + "<br>" +
+                                                               "16% of the number: " + percentage + "<br>" +
+                                                               "Result after adding 16%: " + result;
             } else {
                 document.getElementById('result').innerHTML = "Please enter a valid number.";
             }
