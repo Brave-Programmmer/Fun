@@ -6,28 +6,71 @@
     <title>16% Addition Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
             padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
-        input, button {
+        h2 {
+            color: #333;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input {
             padding: 10px;
-            margin: 5px;
+            margin: 5px 0;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
         }
         #result {
-            margin-top: 10px;
-            font-size: 1.2em;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border: 1px solid #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h2>Calculate 16% of an Integer and Add it</h2>
+    <h2>16% Addition Calculator</h2>
     
-    <label for="number">Enter an integer:</label>
-    <input type="number" id="number" placeholder="Enter a number">
-    
-    <button onclick="calculateAndAdd()">Calculate and Add 16%</button>
-    
-    <div id="result"></div>
+    <div class="calculator">
+        <label for="number">Enter an integer:</label>
+        <input type="number" id="number" placeholder="Enter a number">
+        
+        <button onclick="calculateAndAdd()">Calculate and Add 16%</button>
+        
+        <div id="result"></div>
+    </div>
 
     <script>
         function calculateAndAdd() {
@@ -35,9 +78,10 @@
             if (!isNaN(number)) {
                 const percentage = number * 0.16;
                 const result = number + percentage;
-                document.getElementById('result').innerHTML = "Original number: " + number + "<br>" +
-                                                               "16% of the number: " + percentage + "<br>" +
-                                                               "Result after adding 16%: " + result;
+                document.getElementById('result').innerHTML = 
+                    "<strong>Original number:</strong> " + number + "<br>" +
+                    "<strong>16% of the number:</strong> " + percentage.toFixed(2) + "<br>" +
+                    "<strong>Result after adding 16%:</strong> " + result.toFixed(2);
             } else {
                 document.getElementById('result').innerHTML = "Please enter a valid number.";
             }
