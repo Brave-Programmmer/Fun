@@ -3,69 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Number Extractor</title>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.1/dist/tesseract.min.js"></script>
+    <title>16% Calculator</title>
+    
+    <!-- Materialize CSS CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    
     <style>
         body {
-            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
         }
-        #output {
-            margin-top: 20px;
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-animated {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-animated::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%) rotate(45deg);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: 0;
+        }
+        .btn-animated:hover::before {
+            width: 0;
+            height: 0;
+        }
+        .btn-animated span {
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
-    <h1>Image Number Extractor</h1>
-    <input type="file" id="imageUpload" accept="image/*" />
-    <button onclick="processImage()">Extract Numbers</button>
+    <div class="container">
+        <h4>16% Calculator</h4>
+        <div class="input-field">
+            <input id="numberInput" type="number" step="0.01" placeholder="Enter a number">
+        </div>
 
-    <div id="output"></div>
+        <!-- Animated Button -->
+        <button id="calculateBtn" class="btn waves-effect waves-light btn-animated" onclick="calculatePercentage()">
+            <span>Calculate 16%</span>
+        </button>
 
+        <!-- Result Display -->
+        <div id="result" style="margin-top: 20px;">
+            <p>16% of <span id="originalNumber"></span>: <span id="percentageValue"></span></p>
+            <p>Total: <span id="totalValue"></span></p>
+        </div>
+    </div>
+
+    <!-- Materialize JS and jQuery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-        function processImage() {
-            const file = document.getElementById('imageUpload').files[0];
-            if (!file) {
-                alert('Please upload an image.');
+        function calculatePercentage() {
+            // Get input value
+            const numberInput = document.getElementById('numberInput').value;
+            const number = parseFloat(numberInput);
+
+            if (isNaN(number)) {
+                alert("Please enter a valid number");
                 return;
             }
 
-            // Create a new FileReader to read the image
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                // Use Tesseract.js to extract text from the image
-                Tesseract.recognize(
-                    event.target.result,
-                    'eng',
-                    { logger: (m) => console.log(m) }
-                ).then(({ data: { text } }) => {
-                    extractAndCalculate(text);
-                });
-            };
-            reader.readAsDataURL(file);
-        }
+            // Calculate 16% of the number
+            const percentage = number * 0.16;
+            const total = number + percentage;
 
-        function extractAndCalculate(text) {
-            // Regular expression to find numbers in the format 1,111.11
-            const regex = /\d{1,3}(,\d{3})*(\.\d{2})?/g;
-            const numbers = text.match(regex);
-
-            if (!numbers || numbers.length === 0) {
-                document.getElementById('output').innerHTML = "No numbers found.";
-                return;
-            }
-
-            let outputHTML = "<h2>Results</h2><ul>";
-            numbers.forEach(number => {
-                // Remove commas to treat as a floating point number
-                const numericValue = parseFloat(number.replace(/,/g, ''));
-                const percentage = numericValue * 0.16;
-                const total = numericValue + percentage;
-
-                outputHTML += `<li>Original: ${number}, 16%: ${percentage.toFixed(2)}, Total: ${total.toFixed(2)}</li>`;
-            });
-            outputHTML += "</ul>";
-
-            document.getElementById('output').innerHTML = outputHTML;
+            // Display results
+            document.getElementById('originalNumber').textContent = number.toFixed(2);
+            document.getElementById('percentageValue').textContent = percentage.toFixed(2);
+            document.getElementById('totalValue').textContent = total.toFixed(2);
         }
     </script>
 </body>
