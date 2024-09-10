@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realistic Calculator: 16% Addition</title>
+    <title>Realistic Calculator</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,45 +15,45 @@
             margin: 0;
         }
         .calculator {
-            width: 300px;
+            width: 320px;
             background-color: #333;
             border-radius: 10px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             padding: 20px;
-            text-align: center;
         }
         .calculator-display {
             background-color: #222;
             border-radius: 5px;
             color: #fff;
             padding: 20px;
-            margin-bottom: 20px;
             font-size: 24px;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
             text-align: right;
+            margin-bottom: 20px;
         }
-        input {
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
-            text-align: right;
-            border: none;
-            border-radius: 5px;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
         }
-        button {
-            width: 100%;
-            padding: 15px;
-            margin-top: 10px;
-            background-color: #28a745;
-            color: #fff;
+        .calc-button {
+            background-color: #444;
+            color: white;
+            padding: 20px;
             border: none;
-            border-radius: 5px;
             font-size: 18px;
-            cursor: pointer;
+            border-radius: 5px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        button:hover {
+        .calc-button:hover {
+            background-color: #555;
+        }
+        .equal-button {
+            background-color: #28a745;
+        }
+        .equal-button:hover {
             background-color: #218838;
         }
         #result {
@@ -69,26 +69,66 @@
 </head>
 <body>
     <div class="calculator">
-        <div class="calculator-display">
-            16% Addition Calculator
+        <div class="calculator-display" id="display">
+            0
         </div>
-        <input type="number" id="number" placeholder="Enter a number">
-        <button onclick="calculateAndAdd()">Calculate and Add 16%</button>
+        
+        <div class="button-grid">
+            <button class="calc-button" onclick="appendNumber(7)">7</button>
+            <button class="calc-button" onclick="appendNumber(8)">8</button>
+            <button class="calc-button" onclick="appendNumber(9)">9</button>
+            <button class="calc-button" onclick="clearDisplay()">C</button>
+
+            <button class="calc-button" onclick="appendNumber(4)">4</button>
+            <button class="calc-button" onclick="appendNumber(5)">5</button>
+            <button class="calc-button" onclick="appendNumber(6)">6</button>
+            <button class="calc-button" onclick="deleteLast()">DEL</button>
+
+            <button class="calc-button" onclick="appendNumber(1)">1</button>
+            <button class="calc-button" onclick="appendNumber(2)">2</button>
+            <button class="calc-button" onclick="appendNumber(3)">3</button>
+            <button class="calc-button" onclick="appendNumber(0)">0</button>
+
+            <button class="calc-button equal-button" onclick="calculate()">= 16%</button>
+        </div>
+        
         <div id="result"></div>
     </div>
 
     <script>
-        function calculateAndAdd() {
-            const number = parseFloat(document.getElementById('number').value);
-            if (!isNaN(number)) {
+        let currentInput = '';
+
+        function appendNumber(number) {
+            currentInput += number;
+            document.getElementById('display').innerText = currentInput;
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            document.getElementById('display').innerText = '0';
+            document.getElementById('result').innerText = '';
+        }
+
+        function deleteLast() {
+            currentInput = currentInput.slice(0, -1);
+            if (currentInput === '') {
+                document.getElementById('display').innerText = '0';
+            } else {
+                document.getElementById('display').innerText = currentInput;
+            }
+        }
+
+        function calculate() {
+            if (currentInput) {
+                const number = parseFloat(currentInput);
                 const percentage = number * 0.16;
                 const result = number + percentage;
-                document.getElementById('result').innerHTML = 
-                    "<strong>Original number:</strong> " + number + "<br>" +
-                    "<strong>16% of the number:</strong> " + percentage.toFixed(2) + "<br>" +
-                    "<strong>Total:</strong> " + result.toFixed(2);
+                document.getElementById('result').innerText = 
+                    "Original number: " + number + "\n" +
+                    "16% of the number: " + percentage.toFixed(2) + "\n" +
+                    "Total: " + result.toFixed(2);
             } else {
-                document.getElementById('result').innerHTML = "Please enter a valid number.";
+                document.getElementById('result').innerText = "Please enter a valid number.";
             }
         }
     </script>
