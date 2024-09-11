@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator with Tailwind CSS</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center h-screen">
 
+  <!-- Calculator Container -->
   <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-80">
-    <!-- Display -->
-    <div class="text-right text-3xl p-4 bg-gray-900 rounded mb-4" id="display">0</div>
-    
+    <!-- Display for Current Input -->
+    <div id="display" class="text-right text-3xl p-4 bg-gray-900 rounded mb-4">0</div>
+
     <!-- Button Grid -->
     <div class="grid grid-cols-4 gap-2">
-      <!-- Number buttons -->
+      <!-- Number Buttons -->
       <button class="calc-btn" onclick="appendNumber(7)">7</button>
       <button class="calc-btn" onclick="appendNumber(8)">8</button>
       <button class="calc-btn" onclick="appendNumber(9)">9</button>
@@ -30,22 +32,25 @@
       <button class="calc-btn" onclick="appendNumber(3)">3</button>
       <button class="calc-btn" onclick="appendDot()">.</button>
 
+      <!-- Zero and Equal Buttons -->
       <button class="calc-btn col-span-2" onclick="appendNumber(0)">0</button>
       <button class="calc-btn col-span-2 bg-green-500 hover:bg-green-600" onclick="calculate()">= 16%</button>
     </div>
 
-    <!-- Result -->
-    <div class="text-right mt-4 text-xl bg-gray-900 p-4 rounded" id="result"></div>
+    <!-- Result Display -->
+    <div id="result" class="text-right mt-4 text-xl bg-gray-900 p-4 rounded"></div>
   </div>
 
   <script>
     let currentInput = '';
 
+    // Function to append a number to the display
     function appendNumber(number) {
       currentInput += number;
       document.getElementById('display').innerText = currentInput;
     }
 
+    // Function to append a decimal point
     function appendDot() {
       if (!currentInput.includes('.')) {
         currentInput += '.';
@@ -53,7 +58,44 @@
       }
     }
 
+    // Function to clear the display and reset inputs
     function clearDisplay() {
       currentInput = '';
       document.getElementById('display').innerText = '0';
-      
+      document.getElementById('result').innerText = '';
+    }
+
+    // Function to delete the last character
+    function deleteLast() {
+      currentInput = currentInput.slice(0, -1);
+      document.getElementById('display').innerText = currentInput || '0';
+    }
+
+    // Function to calculate 16% of the entered number and reset the input
+    function calculate() {
+      if (currentInput) {
+        const number = parseFloat(currentInput);
+        const percentage = number * 0.16;
+        const total = number + percentage;
+
+        // Display the result
+        document.getElementById('result').innerText = 
+          `Original: ${number}\n16%: ${percentage.toFixed(2)}\nTotal: ${total.toFixed(2)}`;
+
+        // Reset the input after calculating
+        clearDisplay();
+      } else {
+        document.getElementById('result').innerText = 'Please enter a valid number.';
+      }
+    }
+  </script>
+
+  <style>
+    /* Tailwind CSS for buttons */
+    .calc-btn {
+      @apply bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 rounded-lg shadow-lg transition-transform transform hover:scale-105 active:scale-95;
+    }
+  </style>
+
+</body>
+</html>
