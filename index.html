@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>16% Calculator with Bulma CSS</title>
+  <title>16% Calculator with Materialize and Animate.css</title>
   
-  <!-- Bulma CSS CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <!-- Materialize CSS CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
   
   <!-- Animate.css for animations -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -16,17 +16,7 @@
       width: 60px;
       height: 60px;
       font-size: 24px;
-      background: #00d1b2;
-      color: white;
-      border: none;
-      border-radius: 50%;
       margin: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .calculator-button:hover {
-      background: #00b89c;
     }
 
     .result.fade-in {
@@ -48,70 +38,81 @@
     }
   </style>
 </head>
-<body class="has-background-light">
+<body class="grey lighten-4">
 
-  <section class="section">
-    <div class="container has-text-centered">
-      <div class="box">
-        <h1 class="title animate__animated animate__fadeInDown">16% Calculator</h1>
-        
-        <!-- Display for Calculator Input -->
-        <input type="text" id="display" class="input is-large is-info has-text-right mb-4" disabled placeholder="0.00" />
-        
-        <!-- Calculator Buttons -->
-        <div class="columns is-mobile is-multiline is-centered">
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('7')">7</button>
-          </div>
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('8')">8</button>
-          </div>
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('9')">9</button>
-          </div>
-
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('4')">4</button>
-          </div>
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('5')">5</button>
-          </div>
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('6')">6</button>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel center-align">
+          <h3 class="animate__animated animate__fadeInDown">16% Calculator</h3>
+          
+          <!-- Display for Calculator Input -->
+          <input type="text" id="display" class="input-field center-align" disabled placeholder="0.00" />
+          
+          <!-- Calculator Buttons -->
+          <div class="row">
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('7')">7</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('8')">8</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('9')">9</button>
+            </div>
           </div>
 
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('1')">1</button>
-          </div>
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('2')">2</button>
-          </div>
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('3')">3</button>
+          <div class="row">
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('4')">4</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('5')">5</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('6')">6</button>
+            </div>
           </div>
 
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('0')">0</button>
+          <div class="row">
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('1')">1</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('2')">2</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('3')">3</button>
+            </div>
           </div>
-          <div class="column is-narrow">
-            <button class="calculator-button" onclick="addToDisplay('.')">.</button>
+
+          <div class="row">
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('0')">0</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light teal" onclick="addToDisplay('.')">.</button>
+            </div>
+            <div class="col s4">
+              <button class="btn calculator-button waves-effect waves-light red" onclick="clearDisplay()">C</button>
+            </div>
           </div>
-          <div class="column is-narrow">
-            <button class="calculator-button has-background-danger" onclick="clearDisplay()">C</button>
-          </div>
+
+          <!-- Calculate Button -->
+          <button onclick="calculate()" class="btn-large waves-effect waves-light green mt-4">Calculate</button>
+
+          <!-- Result Section -->
+          <div id="result" class="result mt-6 fadeIn is-size-4"></div>
         </div>
-        
-        <!-- Calculate Button -->
-        <button onclick="calculate()" class="button is-large is-success mt-4">Calculate</button>
-
-        <!-- Result Section -->
-        <div id="result" class="result mt-6 is-size-4"></div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- jQuery for dynamic behavior -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <script>
     // Add number or decimal to the display
