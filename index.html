@@ -3,200 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>16% Calculator</title>
+  <title>Calculate 16% of a Decimal</title>
   <style>
-    /* General Body Styling */
     body {
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      font-family: 'Arial', sans-serif;
+      color: #fff;
     }
 
-    /* Calculator Container */
-    .calculator {
-      background-color: #1e1e1e;
-      border-radius: 20px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
-      padding: 20px;
-      width: 320px;
-    }
-
-    /* Display Styling */
-    #display {
-      background-color: #2a2d37;
-      color: #f2f2f2;
-      font-size: 2.5rem;
-      text-align: right;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      min-height: 60px;
-    }
-
-    /* Result Box Styling */
-    .result-box {
-      background-color: #2a2d37;
-      color: #f2f2f2;
-      padding: 10px;
-      border-radius: 10px;
-      margin-top: 10px;
+    .container {
       text-align: center;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    /* Button Container Styling */
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    /* Button Styling */
-    .button {
-      background-color: #44475a;
-      color: white;
-      border: none;
-      font-size: 1.5rem;
-      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
       border-radius: 10px;
-      transition: transform 0.2s, background-color 0.2s;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      background: #ff6b6b;
+      color: white;
+      border-radius: 5px;
       cursor: pointer;
+      transition: 0.3s ease-in-out;
     }
 
-    /* Hover and Active States for Buttons */
-    .button:hover {
-      background-color: #6272a4;
-      transform: translateY(-3px);
+    button:hover {
+      background: #ff4757;
     }
 
-    .button:active {
-      background-color: #bd93f9;
-      transform: translateY(0px);
+    .result {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
     }
 
-    /* Special Button Styling */
-    .equal {
-      background-color: #50fa7b;
+    /* Cool background animation */
+    @keyframes background-move {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .equal:hover {
-      background-color: #40d98e;
+    body {
+      animation: background-move 10s infinite alternate;
+      background-size: 200% 200%;
     }
 
-    .clear {
-      background-color: #ff5555;
-    }
-
-    .clear:hover {
-      background-color: #ff6b6b;
+    .fade-in {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-
-  <!-- Calculator Container -->
-  <div class="calculator">
-    <!-- Display for Current Input -->
-    <div id="display">0</div>
-
-    <!-- Buttons Grid -->
-    <div class="buttons">
-      <button class="button" onclick="appendNumber(7)">7</button>
-      <button class="button" onclick="appendNumber(8)">8</button>
-      <button class="button" onclick="appendNumber(9)">9</button>
-      <button class="button clear" onclick="clearDisplay()">C</button>
-
-      <button class="button" onclick="appendNumber(4)">4</button>
-      <button class="button" onclick="appendNumber(5)">5</button>
-      <button class="button" onclick="appendNumber(6)">6</button>
-      <button class="button" onclick="deleteLast()">DEL</button>
-
-      <button class="button" onclick="appendNumber(1)">1</button>
-      <button class="button" onclick="appendNumber(2)">2</button>
-      <button class="button" onclick="appendNumber(3)">3</button>
-      <button class="button" onclick="appendDot()">.</button>
-
-      <!-- Zero and Equal Buttons -->
-      <button class="button" onclick="appendNumber(0)">0</button>
-      <button class="button equal" colspan="2" onclick="calculate()">= 16%</button>
-    </div>
-
-    <!-- Result Boxes -->
-    <div id="original" class="result-box">Original: 0</div>
-    <div id="percentage" class="result-box">16%: 0.00</div>
-    <div id="total" class="result-box">Total: 0.00</div>
+  <div class="container">
+    <h1>Calculate 16% of Your Number</h1>
+    <input type="number" id="numberInput" placeholder="Enter a decimal number" />
+    <br />
+    <button onclick="calculate()">Calculate</button>
+    <div class="result" id="result"></div>
   </div>
 
   <script>
-    let currentInput = '';
-
-    // Function to append a number to the display
-    function appendNumber(number) {
-      currentInput += number;
-      document.getElementById('display').innerText = currentInput;
-      hideResults();
-    }
-
-    // Function to append a decimal point
-    function appendDot() {
-      if (!currentInput.includes('.')) {
-        currentInput += '.';
-        document.getElementById('display').innerText = currentInput;
-      }
-    }
-
-    // Function to clear the display and reset inputs
-    function clearDisplay() {
-      currentInput = '';
-      document.getElementById('display').innerText = '0';
-      hideResults();
-    }
-
-    // Function to delete the last character
-    function deleteLast() {
-      currentInput = currentInput.slice(0, -1);
-      document.getElementById('display').innerText = currentInput || '0';
-    }
-
-    // Function to calculate 16% of the entered number and update results
     function calculate() {
-      if (currentInput) {
-        const number = parseFloat(currentInput);
-        const percentage = number * 0.16;
-        const total = number + percentage;
+      const number = parseFloat(document.getElementById('numberInput').value);
+      if (!isNaN(number)) {
+        const integerPart = Math.floor(number);
+        const percent = number * 0.16;
+        const result = integerPart + percent;
 
-        // Display the results
-        document.getElementById('original').innerText = `Original: ${number.toFixed(2)}`;
-        document.getElementById('percentage').innerText = `16%: ${percentage.toFixed(2)}`;
-        document.getElementById('total').innerText = `Total: ${total.toFixed(2)}`;
-
-        // Show the results with fade-in effect
-        document.getElementById('original').style.opacity = '1';
-        document.getElementById('percentage').style.opacity = '1';
-        document.getElementById('total').style.opacity = '1';
-
-        // Reset the input after calculating
-        clearDisplay();
-      } else {
-        document.getElementById('original').innerText = 'Please enter a valid number.';
-        document.getElementById('percentage').innerText = '';
-        document.getElementById('total').innerText = '';
-        document.getElementById('original').style.opacity = '1';
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = `Result: ${result.toFixed(2)}`;
+        resultDiv.classList.add('fade-in');
       }
-    }
-
-    // Function to hide result boxes
-    function hideResults() {
-      document.getElementById('original').style.opacity = '0';
-      document.getElementById('percentage').style.opacity = '0';
-      document.getElementById('total').style.opacity = '0';
     }
   </script>
-
 </body>
 </html>
