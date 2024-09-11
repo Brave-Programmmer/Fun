@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>16% Calculator with Materialize and Animate.css</title>
+  <title>16% Calculator with Materialize and Enhanced Output</title>
   
   <!-- Materialize CSS CDN -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
@@ -19,9 +19,31 @@
       margin: 5px;
     }
 
-    .result.fade-in {
-      opacity: 1;
-      transition: opacity 0.5s ease-in-out;
+    /* Enhanced styling for the result card */
+    .result-card {
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .result-card p {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .result-highlight {
+      font-weight: bold;
+      color: #1e88e5;
+    }
+
+    .final-result {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #43a047;
+      margin-top: 20px;
+      border-top: 2px solid #43a047;
+      padding-top: 10px;
     }
 
     .fadeIn {
@@ -102,7 +124,7 @@
           <button onclick="calculate()" class="btn-large waves-effect waves-light green mt-4">Calculate</button>
 
           <!-- Result Section -->
-          <div id="result" class="result mt-6 fadeIn is-size-4"></div>
+          <div id="result" class="result mt-6"></div>
         </div>
       </div>
     </div>
@@ -141,10 +163,12 @@
 
         const resultDiv = document.getElementById('result');
         resultDiv.innerHTML = `
-          <p>Original Number: ${number.toFixed(2)}</p>
-          <p>16% of ${number.toFixed(2)}: ${percent.toFixed(2)}</p>
-          <p>Integer Part: ${integerPart}</p>
-          <p><strong>Final Result: ${result.toFixed(2)}</strong></p>
+          <div class="result-card animate__animated animate__fadeIn">
+            <p><strong>Original Number:</strong> <span class="result-highlight">${number.toFixed(2)}</span></p>
+            <p><strong>16% of ${number.toFixed(2)}:</strong> <span class="result-highlight">${percent.toFixed(2)}</span></p>
+            <p><strong>Integer Part:</strong> <span class="result-highlight">${integerPart}</span></p>
+            <p class="final-result">Final Result: ${result.toFixed(2)}</p>
+          </div>
         `;
         resultDiv.classList.add('fadeIn', 'fade-in');
         // Reset the input display
