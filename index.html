@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator with Tailwind CSS</title>
+  <title>Cool Animated Calculator</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+<body class="bg-gray-900 flex items-center justify-center h-screen">
 
   <!-- Calculator Container -->
   <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-80">
     <!-- Display for Current Input -->
-    <div id="display" class="text-right text-3xl p-4 bg-gray-900 rounded mb-4">0</div>
+    <div id="display" class="text-right text-4xl p-4 bg-gray-900 rounded mb-4 transition-transform transform scale-100">0</div>
 
     <!-- Button Grid -->
-    <div class="grid grid-cols-4 gap-2">
+    <div class="grid grid-cols-4 gap-3 mb-6">
       <!-- Number Buttons -->
       <button class="calc-btn" onclick="appendNumber(7)">7</button>
       <button class="calc-btn" onclick="appendNumber(8)">8</button>
@@ -37,8 +37,8 @@
       <button class="calc-btn col-span-2 bg-green-500 hover:bg-green-600" onclick="calculate()">= 16%</button>
     </div>
 
-    <!-- Result Display -->
-    <div id="result" class="text-right mt-4 text-xl bg-gray-900 p-4 rounded"></div>
+    <!-- Cool Result Display with Transition -->
+    <div id="result" class="text-center text-2xl bg-gray-700 p-4 rounded-lg opacity-0 transition-opacity duration-500 ease-in-out"></div>
   </div>
 
   <script>
@@ -48,6 +48,8 @@
     function appendNumber(number) {
       currentInput += number;
       document.getElementById('display').innerText = currentInput;
+      document.getElementById('result').classList.remove("opacity-100");
+      document.getElementById('result').classList.add("opacity-0");
     }
 
     // Function to append a decimal point
@@ -62,7 +64,8 @@
     function clearDisplay() {
       currentInput = '';
       document.getElementById('display').innerText = '0';
-      document.getElementById('result').innerText = '';
+      document.getElementById('result').classList.remove("opacity-100");
+      document.getElementById('result').classList.add("opacity-0");
     }
 
     // Function to delete the last character
@@ -78,12 +81,14 @@
         const percentage = number * 0.16;
         const total = number + percentage;
 
-        // Display the result
-        document.getElementById('result').innerText = 
-          `Original: ${number}\n16%: ${percentage.toFixed(2)}\nTotal: ${total.toFixed(2)}`;
+        // Display the result with cool effect
+        const resultElement = document.getElementById('result');
+        resultElement.innerText = `Original: ${number}\n16%: ${percentage.toFixed(2)}\nTotal: ${total.toFixed(2)}`;
+        resultElement.classList.remove("opacity-0");
+        resultElement.classList.add("opacity-100");
 
         // Reset the input after calculating
-        
+        clearDisplay();
       } else {
         document.getElementById('result').innerText = 'Please enter a valid number.';
       }
@@ -94,6 +99,13 @@
     /* Tailwind CSS for buttons */
     .calc-btn {
       @apply bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 rounded-lg shadow-lg transition-transform transform hover:scale-105 active:scale-95;
+    }
+    /* Fade-in effect for result */
+    .opacity-100 {
+      opacity: 1;
+    }
+    .opacity-0 {
+      opacity: 0;
     }
   </style>
 
