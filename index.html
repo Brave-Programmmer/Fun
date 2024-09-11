@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>16% Calculator with Detailed Result</title>
+  <title>16% Calculator with Neon Effect</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,23 +12,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
   <style>
-    .calculator-button {
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
-      background: #16a085;
-      color: white;
-      border: none;
+    body {
+      background: #000; /* Dark background for contrast */
+    }
+
+    /* Neon Text Effect */
+    .neon-text {
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 75px #0ff;
+    }
+
+    /* Neon Button Effect */
+    .neon-button {
+      background-color: transparent;
+      color: #0ff;
+      border: 2px solid #0ff;
       border-radius: 50%;
-      margin: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff;
+      transition: box-shadow 0.3s ease-in-out;
     }
 
-    .calculator-button:hover {
-      background: #1abc9c;
+    .neon-button:hover {
+      box-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff, 0 0 80px #0ff;
     }
 
+    /* Neon Effect for Result Display */
+    .neon-result {
+      color: #0ff;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 75px #0ff;
+    }
+
+    /* Fade-in animation for result */
     .result.fade-in {
       opacity: 1;
       transition: opacity 0.5s ease-in-out;
@@ -48,9 +63,9 @@
     }
   </style>
 </head>
-<body class="bg-gradient-to-r from-blue-500 to-purple-700 flex items-center justify-center h-screen text-white">
+<body class="flex items-center justify-center h-screen text-white">
 
-  <div class="container bg-opacity-30 bg-white p-8 rounded-lg shadow-lg text-center max-w-lg">
+  <div class="container p-8 rounded-lg text-center max-w-lg neon-text">
     <h1 class="text-3xl font-bold mb-8 animate__animated animate__fadeInDown">16% Calculator</h1>
     
     <!-- Display for Calculator Input -->
@@ -58,28 +73,28 @@
     
     <!-- Calculator Buttons -->
     <div class="grid grid-cols-3 gap-2">
-      <button class="calculator-button" onclick="addToDisplay('7')">7</button>
-      <button class="calculator-button" onclick="addToDisplay('8')">8</button>
-      <button class="calculator-button" onclick="addToDisplay('9')">9</button>
+      <button class="neon-button p-4" onclick="addToDisplay('7')">7</button>
+      <button class="neon-button p-4" onclick="addToDisplay('8')">8</button>
+      <button class="neon-button p-4" onclick="addToDisplay('9')">9</button>
       
-      <button class="calculator-button" onclick="addToDisplay('4')">4</button>
-      <button class="calculator-button" onclick="addToDisplay('5')">5</button>
-      <button class="calculator-button" onclick="addToDisplay('6')">6</button>
+      <button class="neon-button p-4" onclick="addToDisplay('4')">4</button>
+      <button class="neon-button p-4" onclick="addToDisplay('5')">5</button>
+      <button class="neon-button p-4" onclick="addToDisplay('6')">6</button>
       
-      <button class="calculator-button" onclick="addToDisplay('1')">1</button>
-      <button class="calculator-button" onclick="addToDisplay('2')">2</button>
-      <button class="calculator-button" onclick="addToDisplay('3')">3</button>
+      <button class="neon-button p-4" onclick="addToDisplay('1')">1</button>
+      <button class="neon-button p-4" onclick="addToDisplay('2')">2</button>
+      <button class="neon-button p-4" onclick="addToDisplay('3')">3</button>
       
-      <button class="calculator-button" onclick="addToDisplay('0')">0</button>
-      <button class="calculator-button" onclick="addToDisplay('.')">.</button>
-      <button class="calculator-button bg-red-600 hover:bg-red-700" onclick="clearDisplay()">C</button>
+      <button class="neon-button p-4" onclick="addToDisplay('0')">0</button>
+      <button class="neon-button p-4" onclick="addToDisplay('.')">.</button>
+      <button class="neon-button p-4 bg-red-600 hover:bg-red-700" onclick="clearDisplay()">C</button>
     </div>
     
     <!-- Calculate Button -->
-    <button onclick="calculate()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 mt-6 rounded-lg shadow-lg animate__animated animate__pulse animate__infinite">Calculate</button>
+    <button onclick="calculate()" class="neon-button px-6 py-3 mt-6">Calculate</button>
 
     <!-- Result Section -->
-    <div id="result" class="result mt-6 text-lg"></div>
+    <div id="result" class="result mt-6 text-lg neon-result"></div>
   </div>
 
   <!-- jQuery for dynamic behavior -->
