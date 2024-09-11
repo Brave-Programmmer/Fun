@@ -4,41 +4,128 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>16% Calculator</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* General Body Styling */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #282c34;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+    }
+
+    /* Calculator Container */
+    .calculator {
+      background-color: #1e1e1e;
+      border-radius: 20px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      width: 300px;
+    }
+
+    /* Display Styling */
+    #display {
+      background-color: #2a2d37;
+      color: #f2f2f2;
+      font-size: 2.5rem;
+      text-align: right;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    /* Buttons Container */
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    /* Button Styling */
+    .button {
+      background-color: #44475a;
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      padding: 15px;
+      border-radius: 10px;
+      transition: transform 0.2s, background-color 0.2s;
+      cursor: pointer;
+    }
+
+    /* Hover and Active States for Buttons */
+    .button:hover {
+      background-color: #6272a4;
+      transform: translateY(-3px);
+    }
+
+    .button:active {
+      background-color: #bd93f9;
+      transform: translateY(0px);
+    }
+
+    /* Equal Button Special Styling */
+    .equal {
+      background-color: #50fa7b;
+    }
+
+    .equal:hover {
+      background-color: #40d98e;
+    }
+
+    /* Clear Button Special Styling */
+    .clear {
+      background-color: #ff5555;
+    }
+
+    .clear:hover {
+      background-color: #ff6b6b;
+    }
+
+    /* Result Styling */
+    #result {
+      color: #50fa7b;
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+  </style>
 </head>
-<body class="bg-gray-900 flex items-center justify-center h-screen">
+<body>
 
   <!-- Calculator Container -->
-  <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-80">
+  <div class="calculator">
     <!-- Display for Current Input -->
-    <div id="display" class="text-right text-4xl p-4 bg-gray-900 rounded mb-4 transition-transform transform scale-100">0</div>
+    <div id="display">0</div>
 
-    <!-- Button Grid -->
-    <div class="grid grid-cols-4 gap-3 mb-6">
-      <!-- Number Buttons -->
-      <button class="calc-btn" onclick="appendNumber(7)">7</button>
-      <button class="calc-btn" onclick="appendNumber(8)">8</button>
-      <button class="calc-btn" onclick="appendNumber(9)">9</button>
-      <button class="calc-btn bg-red-500 hover:bg-red-600" onclick="clearDisplay()">C</button>
+    <!-- Buttons Grid -->
+    <div class="buttons">
+      <button class="button" onclick="appendNumber(7)">7</button>
+      <button class="button" onclick="appendNumber(8)">8</button>
+      <button class="button" onclick="appendNumber(9)">9</button>
+      <button class="button clear" onclick="clearDisplay()">C</button>
 
-      <button class="calc-btn" onclick="appendNumber(4)">4</button>
-      <button class="calc-btn" onclick="appendNumber(5)">5</button>
-      <button class="calc-btn" onclick="appendNumber(6)">6</button>
-      <button class="calc-btn bg-yellow-500 hover:bg-yellow-600" onclick="deleteLast()">DEL</button>
+      <button class="button" onclick="appendNumber(4)">4</button>
+      <button class="button" onclick="appendNumber(5)">5</button>
+      <button class="button" onclick="appendNumber(6)">6</button>
+      <button class="button" onclick="deleteLast()">DEL</button>
 
-      <button class="calc-btn" onclick="appendNumber(1)">1</button>
-      <button class="calc-btn" onclick="appendNumber(2)">2</button>
-      <button class="calc-btn" onclick="appendNumber(3)">3</button>
-      <button class="calc-btn" onclick="appendDot()">.</button>
+      <button class="button" onclick="appendNumber(1)">1</button>
+      <button class="button" onclick="appendNumber(2)">2</button>
+      <button class="button" onclick="appendNumber(3)">3</button>
+      <button class="button" onclick="appendDot()">.</button>
 
       <!-- Zero and Equal Buttons -->
-      <button class="calc-btn col-span-2" onclick="appendNumber(0)">0</button>
-      <button class="calc-btn col-span-2 bg-green-500 hover:bg-green-600" onclick="calculate()">= 16%</button>
+      <button class="button" onclick="appendNumber(0)">0</button>
+      <button class="button equal" colspan="2" onclick="calculate()">= 16%</button>
     </div>
 
     <!-- Result Display -->
-    <div id="result" class="text-center text-2xl bg-gray-700 p-4 rounded-lg opacity-0 transition-opacity duration-500 ease-in-out"></div>
+    <div id="result"></div>
   </div>
 
   <script>
@@ -48,8 +135,7 @@
     function appendNumber(number) {
       currentInput += number;
       document.getElementById('display').innerText = currentInput;
-      document.getElementById('result').classList.remove("opacity-100");
-      document.getElementById('result').classList.add("opacity-0");
+      document.getElementById('result').style.opacity = '0';
     }
 
     // Function to append a decimal point
@@ -64,8 +150,7 @@
     function clearDisplay() {
       currentInput = '';
       document.getElementById('display').innerText = '0';
-      document.getElementById('result').classList.remove("opacity-100");
-      document.getElementById('result').classList.add("opacity-0");
+      document.getElementById('result').style.opacity = '0';
     }
 
     // Function to delete the last character
@@ -84,30 +169,16 @@
         // Display the result with cool effect
         const resultElement = document.getElementById('result');
         resultElement.innerText = `Original: ${number}\n16%: ${percentage.toFixed(2)}\nTotal: ${total.toFixed(2)}`;
-        resultElement.classList.remove("opacity-0");
-        resultElement.classList.add("opacity-100");
+        resultElement.style.opacity = '1';
 
         // Reset the input after calculating
         clearDisplay();
       } else {
         document.getElementById('result').innerText = 'Please enter a valid number.';
+        document.getElementById('result').style.opacity = '1';
       }
     }
   </script>
-
-  <style>
-    /* Tailwind CSS for buttons */
-    .calc-btn {
-      @apply bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 rounded-lg shadow-lg transition-transform transform hover:scale-105 active:scale-95;
-    }
-    /* Fade-in effect for result */
-    .opacity-100 {
-      opacity: 1;
-    }
-    .opacity-0 {
-      opacity: 0;
-    }
-  </style>
 
 </body>
 </html>
