@@ -5,27 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>16% Calculator</title>
   <style>
-#result{
-background-color: #fffff;
-}
     /* General Body Styling */
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      
+      background-color: #f5f5f5;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
     }
 
     /* Calculator Container */
     .calculator {
-      
+      background-color: #1e1e1e;
       border-radius: 20px;
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
       padding: 20px;
-      width: 300px;
+      width: 320px;
     }
 
     /* Display Styling */
@@ -37,9 +34,22 @@ background-color: #fffff;
       padding: 20px;
       border-radius: 15px;
       margin-bottom: 20px;
+      min-height: 60px;
     }
 
-    /* Buttons Container */
+    /* Result Box Styling */
+    .result-box {
+      background-color: #2a2d37;
+      color: #f2f2f2;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Button Container Styling */
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -69,7 +79,7 @@ background-color: #fffff;
       transform: translateY(0px);
     }
 
-    /* Equal Button Special Styling */
+    /* Special Button Styling */
     .equal {
       background-color: #50fa7b;
     }
@@ -78,23 +88,12 @@ background-color: #fffff;
       background-color: #40d98e;
     }
 
-    /* Clear Button Special Styling */
     .clear {
       background-color: #ff5555;
     }
 
     .clear:hover {
       background-color: #ff6b6b;
-    }
-
-    /* Result Styling */
-    #result {
-      opacity:100%;
-      font-size: 1.5rem;
-      text-align: center;
-      margin-top: 20px;
-      
-      transition: opacity 0.5s ease-in-out;
     }
   </style>
 </head>
@@ -127,8 +126,10 @@ background-color: #fffff;
       <button class="button equal" colspan="2" onclick="calculate()">= 16%</button>
     </div>
 
-    <!-- Result Display -->
-    <div id="result"></div>
+    <!-- Result Boxes -->
+    <div id="original" class="result-box">Original: 0</div>
+    <div id="percentage" class="result-box">16%: 0.00</div>
+    <div id="total" class="result-box">Total: 0.00</div>
   </div>
 
   <script>
@@ -138,7 +139,7 @@ background-color: #fffff;
     function appendNumber(number) {
       currentInput += number;
       document.getElementById('display').innerText = currentInput;
-      document.getElementById('result').style.opacity = '0';
+      hideResults();
     }
 
     // Function to append a decimal point
@@ -153,7 +154,7 @@ background-color: #fffff;
     function clearDisplay() {
       currentInput = '';
       document.getElementById('display').innerText = '0';
-      document.getElementById('result').style.opacity = '0';
+      hideResults();
     }
 
     // Function to delete the last character
@@ -162,24 +163,38 @@ background-color: #fffff;
       document.getElementById('display').innerText = currentInput || '0';
     }
 
-    // Function to calculate 16% of the entered number and reset the input
+    // Function to calculate 16% of the entered number and update results
     function calculate() {
       if (currentInput) {
         const number = parseFloat(currentInput);
         const percentage = number * 0.16;
         const total = number + percentage;
 
-        // Display the result with cool effect
-        const resultElement = document.getElementById('result');
-        resultElement.innerText = `Original: ${number}\n16%: ${percentage.toFixed(2)}\nTotal: ${total.toFixed(2)}`;
-        
+        // Display the results
+        document.getElementById('original').innerText = `Original: ${number}`;
+        document.getElementById('percentage').innerText = `16%: ${percentage.toFixed(2)}`;
+        document.getElementById('total').innerText = `Total: ${total.toFixed(2)}`;
+
+        // Show the results with fade-in effect
+        document.getElementById('original').style.opacity = '1';
+        document.getElementById('percentage').style.opacity = '1';
+        document.getElementById('total').style.opacity = '1';
 
         // Reset the input after calculating
         clearDisplay();
       } else {
-        document.getElementById('result').innerText = 'Please enter a valid number.';
-        document.getElementById('result').style.opacity = '1';
+        document.getElementById('original').innerText = 'Please enter a valid number.';
+        document.getElementById('percentage').innerText = '';
+        document.getElementById('total').innerText = '';
+        document.getElementById('original').style.opacity = '1';
       }
+    }
+
+    // Function to hide result boxes
+    function hideResults() {
+      document.getElementById('original').style.opacity = '0';
+      document.getElementById('percentage').style.opacity = '0';
+      document.getElementById('total').style.opacity = '0';
     }
   </script>
 
