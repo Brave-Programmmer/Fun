@@ -3,125 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GST Explained with Animation</title>
+    <title>GST Tree Diagram</title>
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQ6bZNp+3Yy2E1FFpPC5P9Rm5F4rRHvM8bXjtXSk2w5aFeXV5p0KC6TpYd5UaZgtkwbKaFpVXBxBJJ8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+    
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f9;
         }
+
         .container {
             width: 90%;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 8px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
+
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 30px;
-        }
-        p {
-            text-align: center;
-            font-size: 18px;
-            color: #555;
         }
 
-        /* Flowchart Styling */
-        .flowchart {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 40px;
-        }
-        .stage {
-            width: 150px;
-            height: 150px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 50%;
+        /* Tree diagram styling */
+        .tree {
+            position: relative;
             display: flex;
             justify-content: center;
-            align-items: center;
-            font-size: 16px;
-            text-align: center;
-            position: relative;
-            animation-duration: 2s;
-            animation-iteration-count: infinite;
+            margin-top: 40px;
         }
-        .stage i {
+
+        .tree ul {
+            padding-top: 20px;
+            position: relative;
+            transition: all 0.5s;
+        }
+
+        .tree li {
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+            transition: all 0.5s;
+        }
+
+        .tree li::before, .tree li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            border-top: 2px solid #ccc;
+            width: 50%;
+            height: 20px;
+        }
+
+        .tree li::after {
+            right: auto;
+            left: 50%;
+            border-left: 2px solid #ccc;
+        }
+
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+
+        .tree li:only-child {
+            padding-top: 0;
+        }
+
+        .tree li:first-child::before, .tree li:last-child::after {
+            border: 0;
+        }
+
+        .tree li:last-child::before {
+            border-right: 2px solid #ccc;
+        }
+
+        .tree li:first-child::after {
+            border-left: 2px solid #ccc;
+        }
+
+        .tree li div {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            width: 160px;
+            position: relative;
+            transition: transform 0.5s;
+        }
+
+        .tree li div i {
             font-size: 24px;
             margin-bottom: 10px;
-        }
-        .arrow {
-            width: 100px;
-            height: 2px;
-            background-color: #333;
-            position: relative;
-            animation: moveArrow 2s infinite ease-in-out;
-        }
-        .arrow::before {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid #333;
-            position: absolute;
-            top: -8px;
-            right: -10px;
+            display: block;
         }
 
-        @keyframes moveArrow {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-            100% { transform: translateX(0); }
+        /* Hover effect to show connections */
+        .tree li div:hover {
+            transform: scale(1.05);
+            background-color: #2e7d32;
         }
 
-        .description {
-            text-align: left;
-            font-size: 18px;
-            line-height: 1.6;
-            margin-top: 30px;
+        /* Animation */
+        .animate-tree div {
+            opacity: 0;
+        }
+
+        .animate-tree div.animate__fadeInDown {
+            animation-name: fadeInDown;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            opacity: 1;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container animate__animated animate__fadeIn">
-        <h1>Understanding GST (Goods and Services Tax)</h1>
-        <p>GST is an indirect tax levied on the supply of goods and services. It is charged at every stage, from the manufacturer to the consumer.</p>
+        <h1>GST Tree Diagram</h1>
+        <p style="text-align: center;">This tree diagram explains the stages of GST application from the Manufacturer to the final Consumer.</p>
 
-        <!-- Flowchart -->
-        <div class="flowchart">
-            <div class="stage animate__animated animate__bounceIn"><i class="fas fa-industry"></i>Manufacturer</div>
-            <div class="arrow"></div>
-            <div class="stage animate__animated animate__bounceIn animate__delay-1s"><i class="fas fa-warehouse"></i>Wholesaler</div>
-            <div class="arrow"></div>
-            <div class="stage animate__animated animate__bounceIn animate__delay-2s"><i class="fas fa-store"></i>Retailer</div>
-            <div class="arrow"></div>
-            <div class="stage animate__animated animate__bounceIn animate__delay-3s"><i class="fas fa-user"></i>Consumer</div>
-        </div>
-
-        <!-- Description -->
-        <div class="description">
-            <p><strong>Manufacturer:</strong> The manufacturer produces goods and pays GST on the raw materials. When they sell the goods to the wholesaler, they charge GST on the final product.</p>
-            <p><strong>Wholesaler:</strong> The wholesaler buys from the manufacturer and adds GST when selling to the retailer.</p>
-            <p><strong>Retailer:</strong> The retailer purchases goods from the wholesaler and charges GST when selling to the final consumer.</p>
-            <p><strong>Consumer:</strong> The consumer pays the final GST, which includes the tax charged at each stage.</p>
+        <div class="tree animate-tree">
+            <ul>
+                <!-- Manufacturer Stage -->
+                <li>
+                    <div class="animate__animated animate__fadeInDown"><i class="fas fa-industry"></i> Manufacturer</div>
+                    <ul>
+                        <!-- Wholesaler Stage -->
+                        <li>
+                            <div class="animate__animated animate__fadeInDown animate__delay-1s"><i class="fas fa-warehouse"></i> Wholesaler</div>
+                            <ul>
+                                <!-- Retailer Stage -->
+                                <li>
+                                    <div class="animate__animated animate__fadeInDown animate__delay-2s"><i class="fas fa-store"></i> Retailer</div>
+                                    <ul>
+                                        <!-- Consumer Stage -->
+                                        <li>
+                                            <div class="animate__animated animate__fadeInDown animate__delay-3s"><i class="fas fa-user"></i> Consumer</div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 
-    <!-- External JS Libraries (Optional for Interactivity) -->
+    <!-- External JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            let delay = 500;
+            $('.animate-tree div').each(function(index) {
+                $(this).css('animation-delay', `${delay * index}ms`);
+            });
+        });
+    </script>
 
 </body>
 </html>
