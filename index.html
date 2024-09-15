@@ -3,186 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GST Tree Diagram</title>
+    <title>GST Explained - Beautiful Layout</title>
 
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQ6bZNp+3Yy2E1FFpPC5P9Rm5F4rRHvM8bXjtXSk2w5aFeXV5p0KC6TpYd5UaZgtkwbKaFpVXBxBJJ8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Bootstrap CSS for grid layout and responsiveness -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
         }
 
         .container {
-            width: 90%;
-            margin: 50px auto;
+            max-width: 1200px;
+            margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         h1 {
             text-align: center;
+            margin-bottom: 40px;
             color: #333;
+            font-size: 36px;
         }
 
-        /* Tree diagram styling */
-        .tree {
-            position: relative;
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #555;
+        }
+
+        .text-block p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .icon-box {
             display: flex;
             justify-content: center;
-            margin-top: 40px;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .tree ul {
-            padding-top: 20px;
-            position: relative;
-            transition: all 0.5s;
-        }
-
-        .tree li {
-            display: inline-block;
-            vertical-align: top;
+        .icon-box div {
             text-align: center;
-            list-style-type: none;
-            position: relative;
-            padding: 20px 5px 0 5px;
-            transition: all 0.5s;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            width: 150px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
 
-        .tree li::before, .tree li::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 50%;
-            border-top: 2px solid #ccc;
-            width: 50%;
-            height: 20px;
+        .icon-box div:hover {
+            transform: translateY(-5px);
         }
 
-        .tree li::after {
-            right: auto;
-            left: 50%;
-            border-left: 2px solid #ccc;
-        }
-
-        .tree li:only-child::after, .tree li:only-child::before {
-            display: none;
-        }
-
-        .tree li:only-child {
-            padding-top: 0;
-        }
-
-        .tree li:first-child::before, .tree li:last-child::after {
-            border: 0;
-        }
-
-        .tree li:last-child::before {
-            border-right: 2px solid #ccc;
-        }
-
-        .tree li:first-child::after {
-            border-left: 2px solid #ccc;
-        }
-
-        .tree li div {
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 8px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            width: 160px;
-            position: relative;
-            transition: transform 0.5s;
-        }
-
-        .tree li div i {
-            font-size: 24px;
+        .icon-box i {
+            font-size: 30px;
             margin-bottom: 10px;
-            display: block;
+            color: #4CAF50;
         }
 
-        /* Hover effect to show connections */
-        .tree li div:hover {
-            transform: scale(1.05);
-            background-color: #2e7d32;
-        }
-
-        /* Animation */
-        .animate-tree div {
-            opacity: 0;
-        }
-
-        .animate-tree div.animate__fadeInDown {
-            animation-name: fadeInDown;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-            opacity: 1;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .icon-box div {
+                width: 100%;
             }
-            to {
-                transform: translateY(0);
-                opacity: 1;
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .section img {
+                margin-bottom: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container animate__animated animate__fadeIn">
-        <h1>GST Tree Diagram</h1>
-        <p style="text-align: center;">This tree diagram explains the stages of GST application from the Manufacturer to the final Consumer.</p>
+    <div class="container">
+        <h1>Understanding GST (Goods and Services Tax)</h1>
 
-        <div class="tree animate-tree">
-            <ul>
-                <!-- Manufacturer Stage -->
-                <li>
-                    <div class="animate__animated animate__fadeInDown"><i class="fas fa-industry"></i> Manufacturer</div>
-                    <ul>
-                        <!-- Wholesaler Stage -->
-                        <li>
-                            <div class="animate__animated animate__fadeInDown animate__delay-1s"><i class="fas fa-warehouse"></i> Wholesaler</div>
-                            <ul>
-                                <!-- Retailer Stage -->
-                                <li>
-                                    <div class="animate__animated animate__fadeInDown animate__delay-2s"><i class="fas fa-store"></i> Retailer</div>
-                                    <ul>
-                                        <!-- Consumer Stage -->
-                                        <li>
-                                            <div class="animate__animated animate__fadeInDown animate__delay-3s"><i class="fas fa-user"></i> Consumer</div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <!-- Introduction Section -->
+        <div class="section text-block">
+            <p>Goods and Services Tax (GST) is an indirect tax that is levied on the supply of goods and services. It is a comprehensive, multistage, destination-based tax that is levied on every value addition.</p>
         </div>
-    </div>
 
-    <!-- External JS Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            let delay = 500;
-            $('.animate-tree div').each(function(index) {
-                $(this).css('animation-delay', `${delay * index}ms`);
-            });
-        });
-    </script>
+        <!-- Image with explanation Section -->
+        <div class="section row">
+            <div class="col-md-6">
+                <img src="https://via.placeholder.com/600x400.png" alt="GST Flow Diagram" class="img-fluid">
+            </div>
+            <div class="col-md-6 text-block">
+                <p>GST has replaced many indirect taxes in India, such as the excise duty, VAT, services tax, etc. The process begins at the <strong>Manufacturer</strong> stage, then moves through the <strong>Wholesaler</strong>, <strong>Retailer</strong>, and finally reaches the <strong>Consumer</strong>, with tax applied at each stage.</p>
+            </div>
+        </div>
 
-</body>
-</html>
+        <!-- GST Stages with Icons -->
+        <div class="section">
+            <h2 class="text-center mb-4">Stages of GST Application</h2>
+            <div class="icon-box">
+                <!-- Manufacturer Icon -->
+                <div>
+                    <i class="fas fa-industry"></i>
+                    <p>Manufacturer<br>GST Applied</p>
+                </div>
+
+                <!-- Wholesaler Icon -->
+                <div>
+                    <i class="fas fa-warehouse"></i>
+                    <p>Wholesaler<br>GST Charged</p>
+                </div>
+
+                <!-- Retailer Icon -->
+                <div>
+                    <i class="fas fa-store"></i>
+                    <p>Retailer<br>GST Collected</p>
+                </div>
+
+                <!-- Consumer Icon -->
+                <div>
+                    <i class="fas fa-user"></i>
+                    <p>Consumer<br>GST Paid</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Summary Section -->
+        <
