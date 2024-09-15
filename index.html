@@ -1,102 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>16% Calculator with Tailwind CSS</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    .result.fade-in {
-      opacity: 1;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Explained</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .content {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .flowchart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .box {
+            width: 150px;
+            height: 100px;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 0 10px;
+            position: relative;
+        }
+        .arrow {
+            width: 100px;
+            height: 2px;
+            background-color: #333;
+            position: relative;
+        }
+        .arrow::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid #333;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+        }
+        .description {
+            margin-top: 20px;
+            text-align: left;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<body>
 
-  <div class="container mx-auto p-4">
-    <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden p-8">
-      <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">16% Calculator</h3>
-      
-      <!-- Display for Calculator Input -->
-      <input type="text" id="display" class="w-full p-4 text-2xl text-center bg-gray-200 rounded-lg mb-6" disabled placeholder="0.00" />
-      
-      <!-- Calculator Buttons -->
-      <div class="grid grid-cols-3 gap-4 mb-6">
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('7')">7</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('8')">8</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('9')">9</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('4')">4</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('5')">5</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('6')">6</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('1')">1</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('2')">2</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('3')">3</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('0')">0</button>
-        <button class="bg-teal-500 hover:bg-teal-600 text-white p-4 rounded-lg text-xl" onclick="addToDisplay('.')">.</button>
-        <button class="bg-red-500 hover:bg-red-600 text-white p-4 rounded-lg text-xl" onclick="clearDisplay()">C</button>
-      </div>
+    <div class="container">
+        <h1>Understanding GST (Goods and Services Tax)</h1>
 
-      <!-- Calculate Button -->
-      <button onclick="calculate()" class="w-full bg-green-500 hover:bg-green-600 text-white p-4 rounded-lg text-xl">Calculate</button>
+        <div class="content">
+            <p>GST is a comprehensive indirect tax levied on the manufacture, sale, and consumption of goods and services across India. It has replaced several indirect taxes like VAT, excise duty, and service tax.</p>
+        </div>
 
-      <!-- Result Section -->
-      <div id="result" class="mt-6 text-lg text-gray-700"></div>
+        <!-- Flowchart Section -->
+        <div class="flowchart">
+            <div class="box">Manufacturer</div>
+            <div class="arrow"></div>
+            <div class="box">Wholesaler</div>
+            <div class="arrow"></div>
+            <div class="box">Retailer</div>
+            <div class="arrow"></div>
+            <div class="box">Consumer</div>
+        </div>
+
+        <!-- Explanation Section -->
+        <div class="description">
+            <p><strong>Manufacturer:</strong> The manufacturer produces goods and pays GST on the raw materials they purchase. When they sell the product to the wholesaler, they charge GST.</p>
+            <p><strong>Wholesaler:</strong> The wholesaler buys goods from the manufacturer and pays GST. When they sell the goods to the retailer, they again charge GST.</p>
+            <p><strong>Retailer:</strong> The retailer purchases goods from the wholesaler and pays GST. When they sell the goods to the consumer, they charge GST, which the consumer pays.</p>
+            <p><strong>Consumer:</strong> The final consumer pays GST on the final product. The tax paid by the consumer is the sum of the GST applied at each stage.</p>
+        </div>
     </div>
-  </div>
 
-  <!-- JavaScript for calculator functionality -->
-  <script>
-    // Add number or decimal to the display
-    function addToDisplay(value) {
-      let display = document.getElementById('display');
-      if (display.value === "0.00") {
-        display.value = value;
-      } else {
-        display.value += value;
-      }
-    }
-
-    // Clear display
-    function clearDisplay() {
-      document.getElementById('display').value = "0.00";
-      document.getElementById('result').textContent = '';
-    }
-
-    // Calculate 16% and add to integer part
-    function calculate() {
-      const number = parseFloat(document.getElementById('display').value);
-      if (!isNaN(number)) {
-        const integerPart = Math.floor(number);
-        const percent = number * 0.16;
-        const result = integerPart + percent;
-
-        const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = `
-          <div class="p-4 bg-blue-100 rounded-lg">
-            <p><strong>Original Number:</strong> <span class="text-blue-600">${number.toFixed(2)}</span></p>
-            <p><strong>16% of ${number.toFixed(2)}:</strong> <span class="text-blue-600">${percent.toFixed(2)}</span></p>
-            <p><strong>Integer Part:</strong> <span class="text-blue-600">${integerPart}</span></p>
-            <p class="text-green-600 font-bold text-xl mt-4">Final Result: ${result.toFixed(2)}</p>
-          </div>
-        `;
-        resultDiv.classList.add('fade-in');
-        // Reset the input display
-        document.getElementById('display').value = "0.00";
-      }
-    }
-  </script>
 </body>
 </html>
